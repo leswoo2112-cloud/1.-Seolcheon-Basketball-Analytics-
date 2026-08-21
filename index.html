@@ -1,1709 +1,2161 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#050912">
+  <meta charset="UTF-8">
 
-<title>설천고 Basketball Analytics PRO</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
 
-<link rel="stylesheet" href="style.css">
+  <meta
+    name="theme-color"
+    content="#080b12"
+  >
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://unpkg.com/lucide@latest"></script>
+  <title>SEOLCHEON 3×3 PERFORMANCE LAB</title>
+
+  <!-- =========================================
+       Google Font
+  ========================================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- =========================================
+       Main CSS
+  ========================================== -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- =========================================
+       Chart.js
+  ========================================== -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
 
+<!-- =========================================================
+     APP
+========================================================= -->
+
 <div id="app">
 
-<!-- =====================================================
-     SIDEBAR
-===================================================== -->
+  <!-- =======================================================
+       TOP BAR
+  ======================================================== -->
 
-<aside class="sidebar">
+  <header class="topbar">
 
     <div class="brand">
-        <div class="brand-logo">S</div>
 
-        <div>
-            <h1>설천고</h1>
-            <span>BASKETBALL ANALYTICS</span>
-            <small>PRO</small>
-        </div>
-    </div>
+      <div class="brand-mark">
+        S
+      </div>
 
-
-    <div class="sidebar-title">MAIN</div>
-
-    <button class="nav-button active" data-page="dashboard">
-        <i data-lucide="layout-dashboard"></i>
-        <span>대시보드</span>
-    </button>
-
-    <button class="nav-button" data-page="game">
-        <i data-lucide="circle-dot"></i>
-        <span>경기 기록</span>
-    </button>
-
-    <button class="nav-button" data-page="analysis">
-        <i data-lucide="bar-chart-3"></i>
-        <span>전력분석</span>
-    </button>
-
-    <button class="nav-button" data-page="report">
-        <i data-lucide="file-chart-column"></i>
-        <span>경기 리포트</span>
-    </button>
-
-    <button class="nav-button" data-page="league">
-        <i data-lucide="trophy"></i>
-        <span>리그 순위</span>
-    </button>
-
-    <button class="nav-button" data-page="players">
-        <i data-lucide="users"></i>
-        <span>선수 관리</span>
-    </button>
-
-    <div class="sidebar-title">AI / TOOLS</div>
-
-    <button class="nav-button" data-page="video">
-        <i data-lucide="video"></i>
-        <span>영상 분석</span>
-    </button>
-
-    <button class="nav-button" data-page="training">
-        <i data-lucide="dumbbell"></i>
-        <span>AI 훈련 추천</span>
-    </button>
-
-    <div class="sidebar-title">SYSTEM</div>
-
-    <button class="nav-button" data-page="data">
-        <i data-lucide="database"></i>
-        <span>데이터 관리</span>
-    </button>
-
-
-    <div class="sidebar-bottom">
-
-        <div class="online-status">
-            <span></span>
-            ANALYTICS ONLINE
-        </div>
-
-        <strong>SEOLCHEON HIGH SCHOOL</strong>
-
-        <small>
-            3×3 · 15 MIN · NO HALF TIME
-        </small>
-
-    </div>
-
-</aside>
-
-
-<!-- =====================================================
-     MAIN
-===================================================== -->
-
-<main class="main">
-
-<header class="topbar">
-
-    <div>
-        <div class="eyebrow">
-            SEOLCHEON HIGH SCHOOL · 3×3 ANALYTICS
-        </div>
-
-        <h2 id="pageTitle">
-            대시보드
-        </h2>
-    </div>
-
-    <div class="topbar-right">
-
-        <span id="currentDate"></span>
-
-        <div class="system-online">
-            <span></span>
-            SYSTEM ONLINE
-        </div>
-
-    </div>
-
-</header>
-
-
-<!-- =====================================================
-     DASHBOARD
-===================================================== -->
-
-<section id="page-dashboard" class="page active">
-
-    <div class="hero-card">
-
-        <div>
-
-            <div class="eyebrow">
-                LATEST GAME · 3×3 · 15 MIN
-            </div>
-
-            <div class="hero-score">
-
-                <div>
-                    <span>설천고</span>
-                    <strong id="dashHomeScore">21</strong>
-                </div>
-
-                <b>:</b>
-
-                <div>
-                    <span id="dashOpponentName">
-                        한빛고
-                    </span>
-
-                    <strong id="dashAwayScore">14</strong>
-                </div>
-
-            </div>
-
-            <p id="dashGameDate">
-                최근 경기 · 경기 종료
-            </p>
-
-        </div>
-
-        <div class="hero-actions">
-
-            <button
-                class="primary-button"
-                data-open-page="report"
-            >
-                경기 리포트
-            </button>
-
-            <button
-                class="secondary-button"
-                data-open-page="analysis"
-            >
-                전력분석 →
-            </button>
-
-        </div>
+      <div class="brand-text">
+        <strong>SEOLCHEON</strong>
+        <span>3×3 PERFORMANCE LAB</span>
+      </div>
 
     </div>
 
 
-    <!-- TEAM SUMMARY -->
+    <div class="topbar-center">
 
-    <div class="stat-grid">
+      <span class="status-dot"></span>
 
-        <div class="stat-card">
-            <span>리그 순위</span>
-            <strong id="dashRank">1위</strong>
-            <small id="dashRecord">
-                5경기 · 4승 1패
-            </small>
-        </div>
-
-        <div class="stat-card">
-            <span>평균 득점</span>
-            <strong id="dashPPG">19.6</strong>
-            <small>시즌 평균</small>
-        </div>
-
-        <div class="stat-card">
-            <span>평균 실점</span>
-            <strong id="dashPAPG">14.4</strong>
-            <small>시즌 평균</small>
-        </div>
-
-        <div class="stat-card">
-            <span>승률</span>
-            <strong id="dashWinRate">80%</strong>
-            <small>시즌 누적</small>
-        </div>
+      <span id="systemStatus">
+        PERFORMANCE SYSTEM ONLINE
+      </span>
 
     </div>
 
 
-    <div class="dashboard-grid">
-
-        <!-- RECENT GAMES -->
-
-        <div class="panel">
-
-            <div class="panel-header">
-
-                <div>
-                    <small>GAME LOG</small>
-                    <h3>최근 경기</h3>
-                </div>
-
-                <button
-                    class="text-button"
-                    data-open-page="league"
-                >
-                    전체 보기
-                </button>
-
-            </div>
-
-            <div id="recentGames" class="game-list"></div>
-
-        </div>
-
-
-        <!-- AI COACH -->
-
-        <div class="panel">
-
-            <div class="panel-header">
-
-                <div>
-                    <small>AI COACH</small>
-                    <h3>AI 코치 한줄평</h3>
-                </div>
-
-                <span class="ai-badge">
-                    AI
-                </span>
-
-            </div>
-
-            <div class="ai-coach">
-
-                <div class="ai-icon">
-                    AI
-                </div>
-
-                <p id="dashCoach">
-                    경기 데이터를 분석하고 있습니다.
-                </p>
-
-            </div>
-
-            <div id="dashCoachTags" class="tag-list"></div>
-
-        </div>
-
-    </div>
-
-
-    <!-- TEAM POWER -->
-
-    <div class="dashboard-grid">
-
-        <div class="panel">
-
-            <div class="panel-header">
-
-                <div>
-                    <small>TEAM POWER</small>
-                    <h3>팀 전력</h3>
-                </div>
-
-                <span class="auto-badge">
-                    AUTO
-                </span>
-
-            </div>
-
-            <div id="teamPowerBars"></div>
-
-        </div>
-
-
-        <!-- RADAR -->
-
-        <div class="panel">
-
-            <div class="panel-header">
-
-                <div>
-                    <small>TEAM PROFILE</small>
-                    <h3>팀 전력 레이더</h3>
-                </div>
-
-            </div>
-
-            <div class="radar-container">
-                <canvas id="teamRadar"></canvas>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     GAME RECORD
-===================================================== -->
-
-<section id="page-game" class="page">
-
-    <div class="page-heading">
-
-        <div>
-            <small>GAME CENTER</small>
-            <h2>경기 기록</h2>
-            <p>
-                3×3 · 15분 단일 경기 · 전후반 없음
-            </p>
-        </div>
-
-        <button
-            class="primary-button"
-            id="finishGameButton"
-        >
-            경기 종료
-        </button>
-
-    </div>
-
-
-    <!-- SCOREBOARD -->
-
-    <div class="scoreboard">
-
-        <div class="score-team">
-
-            <span>HOME</span>
-            <h2>설천고</h2>
-
-            <strong id="homeScore">
-                0
-            </strong>
-
-        </div>
-
-
-        <div class="score-clock">
-
-            <span id="gameStatus">
-                READY
-            </span>
-
-            <strong id="gameClock">
-                15:00
-            </strong>
-
-            <button id="startGameButton">
-                경기 시작
-            </button>
-
-            <button
-                id="pauseGameButton"
-                class="secondary-button"
-            >
-                일시정지
-            </button>
-
-        </div>
-
-
-        <div class="score-team">
-
-            <span>AWAY</span>
-
-            <input
-                id="opponentInput"
-                value="상대팀"
-                placeholder="상대팀"
-            >
-
-            <strong id="awayScore">
-                0
-            </strong>
-
-        </div>
-
-    </div>
-
-
-    <!-- GAME CONTROL -->
-
-    <div class="game-layout">
-
-        <div class="panel">
-
-            <div class="panel-header">
-                <h3>선수 이벤트</h3>
-
-                <button
-                    class="secondary-button"
-                    id="resetGameButton"
-                >
-                    경기 초기화
-                </button>
-            </div>
-
-
-            <div class="player-event-grid">
-
-                <div class="event-player-card">
-
-                    <div class="player-mini">
-                        <strong>#1</strong>
-                        <span id="gamePlayer1Name">
-                            선수 1
-                        </span>
-                    </div>
-
-                    <div class="event-buttons">
-
-                        <button data-stat="pts1" data-player="1">
-                            +1
-                        </button>
-
-                        <button data-stat="pts2" data-player="1">
-                            +2
-                        </button>
-
-                        <button data-stat="reb" data-player="1">
-                            REB
-                        </button>
-
-                        <button data-stat="ast" data-player="1">
-                            AST
-                        </button>
-
-                        <button data-stat="stl" data-player="1">
-                            STL
-                        </button>
-
-                        <button data-stat="blk" data-player="1">
-                            BLK
-                        </button>
-
-                        <button data-stat="to" data-player="1">
-                            TO
-                        </button>
-
-                        <button data-stat="pf" data-player="1">
-                            PF
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <div class="event-player-card">
-
-                    <div class="player-mini">
-                        <strong>#2</strong>
-                        <span id="gamePlayer2Name">
-                            선수 2
-                        </span>
-                    </div>
-
-                    <div class="event-buttons">
-
-                        <button data-stat="pts1" data-player="2">
-                            +1
-                        </button>
-
-                        <button data-stat="pts2" data-player="2">
-                            +2
-                        </button>
-
-                        <button data-stat="reb" data-player="2">
-                            REB
-                        </button>
-
-                        <button data-stat="ast" data-player="2">
-                            AST
-                        </button>
-
-                        <button data-stat="stl" data-player="2">
-                            STL
-                        </button>
-
-                        <button data-stat="blk" data-player="2">
-                            BLK
-                        </button>
-
-                        <button data-stat="to" data-player="2">
-                            TO
-                        </button>
-
-                        <button data-stat="pf" data-player="2">
-                            PF
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <div class="event-player-card">
-
-                    <div class="player-mini">
-                        <strong>#3</strong>
-                        <span id="gamePlayer3Name">
-                            선수 3
-                        </span>
-                    </div>
-
-                    <div class="event-buttons">
-
-                        <button data-stat="pts1" data-player="3">
-                            +1
-                        </button>
-
-                        <button data-stat="pts2" data-player="3">
-                            +2
-                        </button>
-
-                        <button data-stat="reb" data-player="3">
-                            REB
-                        </button>
-
-                        <button data-stat="ast" data-player="3">
-                            AST
-                        </button>
-
-                        <button data-stat="stl" data-player="3">
-                            STL
-                        </button>
-
-                        <button data-stat="blk" data-player="3">
-                            BLK
-                        </button>
-
-                        <button data-stat="to" data-player="3">
-                            TO
-                        </button>
-
-                        <button data-stat="pf" data-player="3">
-                            PF
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- LIVE EVENT LOG -->
-
-        <div class="panel">
-
-            <div class="panel-header">
-                <h3>경기 이벤트</h3>
-                <span id="eventCount">0 events</span>
-            </div>
-
-            <div
-                id="liveEvents"
-                class="event-log"
-            >
-                <div class="empty-state">
-                    아직 기록된 이벤트가 없습니다.
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     ANALYSIS
-===================================================== -->
-
-<section id="page-analysis" class="page">
-
-    <div class="page-heading">
-
-        <div>
-            <small>TEAM SCOUTING</small>
-            <h2>전력분석</h2>
-            <p>
-                경기 데이터를 기반으로 팀 전력을 분석합니다.
-            </p>
-        </div>
-
-        <button
-            class="primary-button"
-            id="refreshAnalysis"
-        >
-            AI 분석 갱신
-        </button>
-
-    </div>
-
-
-    <div class="metric-grid">
-
-        <div class="metric-card">
-            <span>공격력</span>
-            <strong id="attackRating">86</strong>
-            <div class="progress">
-                <i id="attackBar"></i>
-            </div>
-        </div>
-
-        <div class="metric-card">
-            <span>수비력</span>
-            <strong id="defenseRating">81</strong>
-            <div class="progress">
-                <i id="defenseBar"></i>
-            </div>
-        </div>
-
-        <div class="metric-card">
-            <span>슛 효율</span>
-            <strong id="shootRating">78</strong>
-            <div class="progress">
-                <i id="shootBar"></i>
-            </div>
-        </div>
-
-        <div class="metric-card">
-            <span>리바운드</span>
-            <strong id="reboundRating">88</strong>
-            <div class="progress">
-                <i id="reboundBar"></i>
-            </div>
-        </div>
-
-        <div class="metric-card">
-            <span>볼 관리</span>
-            <strong id="ballRating">73</strong>
-            <div class="progress">
-                <i id="ballBar"></i>
-            </div>
-        </div>
-
-        <div class="metric-card highlight">
-            <span>종합 전력</span>
-            <strong id="overallRating">82</strong>
-            <small>TEAM RATING</small>
-        </div>
-
-    </div>
-
-
-    <!-- PLAY STYLE -->
-
-    <div class="analysis-grid">
-
-        <div class="panel">
-
-            <div class="panel-header">
-
-                <div>
-                    <small>PLAY STYLE</small>
-                    <h3>플레이스타일</h3>
-                </div>
-
-                <span
-                    id="playStyleGrade"
-                    class="rating-grade"
-                >
-                    A-
-                </span>
-
-            </div>
-
-            <div id="playStyleBox"></div>
-
-        </div>
-
-
-        <div class="panel">
-
-            <div class="panel-header">
-
-                <div>
-                    <small>AI SCOUT</small>
-                    <h3>AI 분석</h3>
-                </div>
-
-                <span class="ai-badge">
-                    AI
-                </span>
-
-            </div>
-
-            <div id="analysisComment"></div>
-
-        </div>
-
-    </div>
-
-
-    <!-- SHOT HEATMAP -->
-
-    <div class="panel heatmap-panel">
-
-        <div class="panel-header">
-
-            <div>
-                <small>SHOT LOCATION</small>
-                <h3>팀 슛 히트맵</h3>
-            </div>
-
-            <div class="filter-buttons">
-
-                <button
-                    class="active"
-                    data-heat-filter="all"
-                >
-                    전체
-                </button>
-
-                <button data-heat-filter="made">
-                    성공
-                </button>
-
-                <button data-heat-filter="miss">
-                    실패
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <div class="heatmap-layout">
-
-            <div
-                id="teamHeatmap"
-                class="basketball-court"
-            >
-
-                <div class="court-hoop"></div>
-                <div class="court-paint"></div>
-                <div class="court-free-throw"></div>
-                <div class="court-three"></div>
-                <div class="court-center"></div>
-
-            </div>
-
-
-            <div class="heatmap-stats">
-
-                <div>
-                    <span>FGA</span>
-                    <strong id="teamFGA">
-                        23
-                    </strong>
-                </div>
-
-                <div>
-                    <span>FGM</span>
-                    <strong id="teamFGM">
-                        14
-                    </strong>
-                </div>
-
-                <div>
-                    <span>FG%</span>
-                    <strong id="teamFGPercent">
-                        61%
-                    </strong>
-                </div>
-
-                <div>
-                    <span>BEST ZONE</span>
-                    <strong>
-                        골밑
-                    </strong>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     GAME REPORT
-===================================================== -->
-
-<section id="page-report" class="page">
-
-    <div class="page-heading">
-
-        <div>
-            <small>GAME REPORT</small>
-            <h2>경기 리포트</h2>
-            <p>
-                경기 종료 후 자동 생성되는 분석 리포트
-            </p>
-        </div>
-
-        <div class="button-row">
-
-            <button
-                class="secondary-button"
-                id="printReport"
-            >
-                인쇄 / PDF
-            </button>
-
-            <button
-                class="primary-button"
-                id="generateReport"
-            >
-                리포트 생성
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <!-- RESULT -->
-
-    <div class="report-result">
-
-        <div>
-
-            <span>
-                3×3 · 15 MIN
-            </span>
-
-            <h1>
-                설천고
-                <strong id="reportHomeScore">
-                    21
-                </strong>
-
-                :
-
-                <strong id="reportAwayScore">
-                    14
-                </strong>
-
-                <span id="reportOpponent">
-                    한빛고
-                </span>
-            </h1>
-
-            <p id="reportDate">
-                경기 종료
-            </p>
-
-        </div>
-
-
-        <div class="mvp-box">
-
-            <small>
-                GAME MVP
-            </small>
-
-            <strong id="reportMVP">
-                김서준
-            </strong>
-
-            <span id="reportMVPStats">
-                9 PTS · 5 REB · 3 AST
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <!-- REPORT SUMMARY -->
-
-    <div class="stat-grid">
-
-        <div class="stat-card">
-            <span>득점</span>
-            <strong id="reportPTS">21</strong>
-        </div>
-
-        <div class="stat-card">
-            <span>리바운드</span>
-            <strong id="reportREB">16</strong>
-        </div>
-
-        <div class="stat-card">
-            <span>어시스트</span>
-            <strong id="reportAST">9</strong>
-        </div>
-
-        <div class="stat-card">
-            <span>턴오버</span>
-            <strong id="reportTO">4</strong>
-        </div>
-
-    </div>
-
-
-    <div class="report-grid">
-
-        <!-- HEATMAP -->
-
-        <div class="panel">
-
-            <div class="panel-header">
-
-                <div>
-                    <small>SHOT MAP</small>
-                    <h3>팀 슛 히트맵</h3>
-                </div>
-
-            </div>
-
-            <div
-                id="reportHeatmap"
-                class="basketball-court report-court"
-            >
-                <div class="court-hoop"></div>
-                <div class="court-paint"></div>
-                <div class="court-free-throw"></div>
-                <div class="court-three"></div>
-                <div class="court-center"></div>
-            </div>
-
-        </div>
-
-
-        <!-- AI REPORT -->
-
-        <div class="panel">
-
-            <div class="panel-header">
-
-                <div>
-                    <small>AI COACH</small>
-                    <h3>AI 코치 한줄평</h3>
-                </div>
-
-                <span class="ai-badge">
-                    AI
-                </span>
-
-            </div>
-
-            <div
-                id="reportCoach"
-                class="ai-report-text"
-            >
-                경기 데이터를 분석하면
-                AI 코치 코멘트가 표시됩니다.
-            </div>
-
-
-            <div class="recommendation-box">
-
-                <h4>
-                    다음 경기 훈련 추천
-                </h4>
-
-                <ul id="reportTrainingList"></ul>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- PLAYER REPORT -->
-
-    <div class="panel">
-
-        <div class="panel-header">
-
-            <div>
-                <small>PLAYER PERFORMANCE</small>
-                <h3>선수 개인 경기 리포트</h3>
-            </div>
-
-            <button
-                class="text-button"
-                data-open-page="players"
-            >
-                선수 전체 보기
-            </button>
-
-        </div>
-
-        <div
-            id="reportPlayers"
-            class="player-report-grid"
-        ></div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     LEAGUE
-===================================================== -->
-
-<section id="page-league" class="page">
-
-    <div class="page-heading">
-
-        <div>
-            <small>LEAGUE MANAGEMENT</small>
-            <h2>리그 순위</h2>
-            <p>
-                시즌 팀 성적을 자동으로 관리합니다.
-            </p>
-        </div>
-
-        <button
-            class="primary-button"
-            id="addTeamButton"
-        >
-            + 팀 등록
-        </button>
-
-    </div>
-
-
-    <div class="panel">
-
-        <div class="table-container">
-
-            <table class="data-table">
-
-                <thead>
-
-                    <tr>
-                        <th>순위</th>
-                        <th>팀</th>
-                        <th>경기</th>
-                        <th>승</th>
-                        <th>패</th>
-                        <th>득점</th>
-                        <th>실점</th>
-                        <th>득실차</th>
-                        <th>승률</th>
-                    </tr>
-
-                </thead>
-
-                <tbody id="leagueTable"></tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     PLAYERS
-===================================================== -->
-
-<section id="page-players" class="page">
-
-    <div class="page-heading">
-
-        <div>
-            <small>PLAYER DATABASE</small>
-            <h2>선수 관리</h2>
-            <p>
-                선수 등록부터 시즌 개인 리포트까지 관리합니다.
-            </p>
-        </div>
-
-        <button
-            class="primary-button"
-            id="addPlayerButton"
-        >
-            + 선수 등록
-        </button>
-
-    </div>
-
-
-    <div
-        id="playerGrid"
-        class="player-grid"
-    ></div>
-
-
-    <!-- SELECTED PLAYER -->
-
-    <div
-        id="selectedPlayerPanel"
-        class="panel player-detail-panel"
-    >
-
-        <div class="empty-state">
-            선수를 선택하면 개인 리포트가 표시됩니다.
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     VIDEO ANALYSIS
-===================================================== -->
-
-<section id="page-video" class="page">
-
-    <div class="page-heading">
-
-        <div>
-            <small>AI VIDEO ANALYSIS</small>
-            <h2>영상 분석</h2>
-
-            <p>
-                경기 영상을 업로드하여
-                선수 및 이벤트 분석을 시작합니다.
-            </p>
-        </div>
-
-        <span class="auto-badge">
-            AI PIPELINE
+    <div class="topbar-actions">
+
+      <button
+        class="icon-btn"
+        id="notificationBtn"
+        title="알림"
+      >
+        ♢
+      </button>
+
+      <button
+        class="profile-btn"
+        id="profileBtn"
+      >
+        <span class="profile-avatar">
+          S
         </span>
 
+        <span>
+          COACH
+        </span>
+      </button>
+
     </div>
 
+  </header>
 
-    <!-- UPLOAD -->
 
-    <div
-        id="videoDropZone"
-        class="video-upload"
+  <!-- =======================================================
+       MAIN NAV
+  ======================================================== -->
+
+  <nav class="main-nav">
+
+    <button
+      class="nav-item active"
+      data-page="home"
+    >
+      <span class="nav-icon">⌂</span>
+      <span>HOME</span>
+    </button>
+
+
+    <button
+      class="nav-item"
+      data-page="video"
+    >
+      <span class="nav-icon">▶</span>
+      <span>VIDEO ANALYSIS</span>
+    </button>
+
+
+    <button
+      class="nav-item"
+      data-page="games"
+    >
+      <span class="nav-icon">▣</span>
+      <span>GAME REPORT</span>
+    </button>
+
+
+    <button
+      class="nav-item"
+      data-page="players"
+    >
+      <span class="nav-icon">◎</span>
+      <span>PLAYER REPORT</span>
+    </button>
+
+
+    <button
+      class="nav-item"
+      data-page="league"
+    >
+      <span class="nav-icon">♜</span>
+      <span>LEAGUE</span>
+    </button>
+
+
+    <button
+      class="nav-item"
+      data-page="training"
+    >
+      <span class="nav-icon">↗</span>
+      <span>AI TRAINING</span>
+    </button>
+
+  </nav>
+
+
+  <!-- =======================================================
+       PAGE CONTAINER
+  ======================================================== -->
+
+  <main class="page-container">
+
+
+    <!-- =====================================================
+         HOME
+    ====================================================== -->
+
+    <section
+      class="page active"
+      id="page-home"
     >
 
-        <div class="upload-icon">
-            <i data-lucide="video"></i>
-        </div>
-
-        <h3>
-            경기 영상을 업로드하세요
-        </h3>
-
-        <p>
-            MP4 · MOV · WEBM
-        </p>
-
-        <label class="upload-button">
-
-            영상 선택
-
-            <input
-                type="file"
-                id="videoInput"
-                accept="video/*"
-                hidden
-            >
-
-        </label>
-
-        <div
-            id="videoFileName"
-            class="file-name"
-        ></div>
-
-    </div>
-
-
-    <!-- ANALYSIS PIPELINE -->
-
-    <div class="panel">
-
-        <div class="panel-header">
-
-            <div>
-                <small>ANALYSIS PIPELINE</small>
-                <h3>영상 분석 과정</h3>
-            </div>
-
-            <span id="videoAnalysisStatus">
-                READY
-            </span>
-
-        </div>
-
-
-        <div class="pipeline">
-
-            <div
-                class="pipeline-step"
-                data-step="tracking"
-            >
-                <strong>01</strong>
-                <span>선수 추적</span>
-            </div>
-
-            <div
-                class="pipeline-step"
-                data-step="ball"
-            >
-                <strong>02</strong>
-                <span>공 추적</span>
-            </div>
-
-            <div
-                class="pipeline-step"
-                data-step="shots"
-            >
-                <strong>03</strong>
-                <span>슛 분석</span>
-            </div>
-
-            <div
-                class="pipeline-step"
-                data-step="events"
-            >
-                <strong>04</strong>
-                <span>이벤트 분석</span>
-            </div>
-
-            <div
-                class="pipeline-step"
-                data-step="report"
-            >
-                <strong>05</strong>
-                <span>리포트 생성</span>
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- VIDEO RESULTS -->
-
-    <div class="metric-grid">
-
-        <div class="metric-card">
-            <span>감지 선수</span>
-            <strong id="videoPlayers">0</strong>
-        </div>
-
-        <div class="metric-card">
-            <span>슛 이벤트</span>
-            <strong id="videoShots">0</strong>
-        </div>
-
-        <div class="metric-card">
-            <span>득점 이벤트</span>
-            <strong id="videoPoints">0</strong>
-        </div>
-
-        <div class="metric-card">
-            <span>리바운드</span>
-            <strong id="videoRebounds">0</strong>
-        </div>
-
-        <div class="metric-card">
-            <span>어시스트</span>
-            <strong id="videoAssists">0</strong>
-        </div>
-
-        <div class="metric-card">
-            <span>턴오버</span>
-            <strong id="videoTurnovers">0</strong>
-        </div>
-
-    </div>
-
-
-    <div class="panel video-note">
-
-        <strong>
-            영상 AI 분석 연결 구조
-        </strong>
-
-        <p>
-            현재 화면은 영상 업로드 → 분석 → 결과 저장 →
-            경기/선수 리포트 연결을 위한 프론트엔드 구조입니다.
-            실제 선수·공 추적과 득점/리바운드/어시스트 자동 판정은
-            별도의 컴퓨터비전 분석 엔진을 연결하면 됩니다.
-        </p>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     AI TRAINING
-===================================================== -->
-
-<section id="page-training" class="page">
-
-    <div class="page-heading">
+      <div class="page-header">
 
         <div>
-            <small>AI COACH</small>
-            <h2>AI 훈련 추천</h2>
 
-            <p>
-                경기 데이터를 기반으로
-                훈련 우선순위를 생성합니다.
-            </p>
+          <span class="eyebrow">
+            SEOLCHEON HIGH SCHOOL
+          </span>
+
+          <h1>
+            PERFORMANCE<br>
+            <span>LAB</span>
+          </h1>
+
+          <p>
+            3×3 경기 데이터를 영상과 함께 분석합니다.
+          </p>
+
+        </div>
+
+
+        <div class="header-actions">
+
+          <button
+            class="btn btn-primary"
+            data-page-target="video"
+          >
+            ▶ 경기 영상 분석
+          </button>
+
+          <button
+            class="btn btn-secondary"
+            data-page-target="games"
+          >
+            경기 리포트
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- HERO -->
+
+      <div class="hero-analysis">
+
+        <div class="hero-copy">
+
+          <span class="hero-label">
+            3×3 BASKETBALL
+          </span>
+
+          <h2>
+            경기 하나를<br>
+            <strong>데이터로 바꾸다.</strong>
+          </h2>
+
+          <p>
+            영상 분석부터 슛 위치, 선수별 퍼포먼스,
+            플레이스타일까지 한 경기의 모든 정보를
+            하나의 리포트로 정리합니다.
+          </p>
+
+
+          <div class="hero-buttons">
+
+            <button
+              class="hero-button primary"
+              data-page-target="video"
+            >
+              영상 업로드
+            </button>
+
+            <button
+              class="hero-button ghost"
+              data-page-target="players"
+            >
+              선수 분석
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="hero-court">
+
+          <div class="court-lines">
+
+            <div class="court-key"></div>
+
+            <div class="court-circle"></div>
+
+            <div class="court-three"></div>
+
+            <div class="court-dot dot-1"></div>
+            <div class="court-dot dot-2"></div>
+            <div class="court-dot dot-3"></div>
+            <div class="court-dot dot-4"></div>
+
+          </div>
+
+          <div class="court-label">
+            SEOLCHEON
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- QUICK ACTIONS -->
+
+      <div class="section-heading">
+
+        <div>
+          <span class="eyebrow">
+            QUICK ACCESS
+          </span>
+
+          <h2>
+            분석 시작
+          </h2>
+        </div>
+
+      </div>
+
+
+      <div class="quick-grid">
+
+        <button
+          class="quick-card"
+          data-page-target="video"
+        >
+
+          <span class="quick-number">
+            01
+          </span>
+
+          <span class="quick-icon">
+            ▶
+          </span>
+
+          <strong>
+            VIDEO ANALYSIS
+          </strong>
+
+          <small>
+            경기 영상 업로드 및 분석
+          </small>
+
+          <span class="quick-arrow">
+            →
+          </span>
+
+        </button>
+
+
+        <button
+          class="quick-card"
+          data-page-target="games"
+        >
+
+          <span class="quick-number">
+            02
+          </span>
+
+          <span class="quick-icon">
+            ▣
+          </span>
+
+          <strong>
+            GAME REPORT
+          </strong>
+
+          <small>
+            경기 전체 퍼포먼스 리포트
+          </small>
+
+          <span class="quick-arrow">
+            →
+          </span>
+
+        </button>
+
+
+        <button
+          class="quick-card"
+          data-page-target="players"
+        >
+
+          <span class="quick-number">
+            03
+          </span>
+
+          <span class="quick-icon">
+            ◎
+          </span>
+
+          <strong>
+            PLAYER REPORT
+          </strong>
+
+          <small>
+            선수 개인 전력 분석
+          </small>
+
+          <span class="quick-arrow">
+            →
+          </span>
+
+        </button>
+
+
+        <button
+          class="quick-card"
+          data-page-target="league"
+        >
+
+          <span class="quick-number">
+            04
+          </span>
+
+          <span class="quick-icon">
+            ♜
+          </span>
+
+          <strong>
+            LEAGUE
+          </strong>
+
+          <small>
+            리그 순위 및 팀 전력
+          </small>
+
+          <span class="quick-arrow">
+            →
+          </span>
+
+        </button>
+
+      </div>
+
+
+      <!-- LAST GAME -->
+
+      <div class="section-heading">
+
+        <div>
+
+          <span class="eyebrow">
+            LAST GAME
+          </span>
+
+          <h2>
+            최근 경기
+          </h2>
+
         </div>
 
         <button
-            class="primary-button"
-            id="refreshTraining"
+          class="text-button"
+          data-page-target="games"
         >
-            추천 갱신
+          전체 경기 →
         </button>
 
-    </div>
+      </div>
 
 
-    <div
-        id="trainingGrid"
-        class="training-grid"
-    ></div>
+      <div
+        class="last-game"
+        id="homeLastGame"
+      >
 
+        <div class="game-team home-team">
+          <span class="team-logo">
+            S
+          </span>
 
-    <div class="panel">
-
-        <div class="panel-header">
-            <h3>
-                AI 코치 종합 의견
-            </h3>
+          <strong id="homeTeamName">
+            설천고
+          </strong>
         </div>
 
-        <div
-            id="trainingCoach"
-            class="ai-report-text"
-        ></div>
 
-    </div>
+        <div class="game-score">
 
-</section>
+          <span id="homeScore">
+            0
+          </span>
+
+          <small>
+            —
+          </small>
+
+          <span id="awayScore">
+            0
+          </span>
+
+          <em>
+            3×3 · 15 MIN
+          </em>
+
+        </div>
 
 
-<!-- =====================================================
-     DATA MANAGEMENT
-===================================================== -->
+        <div class="game-team away-team">
 
-<section id="page-data" class="page">
+          <strong id="awayTeamName">
+            상대팀
+          </strong>
 
-    <div class="page-heading">
+          <span class="team-logo opponent">
+            O
+          </span>
+
+        </div>
+
+
+        <button
+          class="game-report-button"
+          data-page-target="games"
+        >
+          REPORT →
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         VIDEO ANALYSIS
+    ====================================================== -->
+
+    <section
+      class="page"
+      id="page-video"
+    >
+
+      <div class="page-header compact">
 
         <div>
-            <small>SYSTEM</small>
-            <h2>데이터 관리</h2>
 
-            <p>
-                설천고 농구 분석 데이터를 관리합니다.
-            </p>
+          <span class="eyebrow">
+            COMPUTER VISION
+          </span>
+
+          <h1>
+            VIDEO<br>
+            <span>ANALYSIS</span>
+          </h1>
+
+          <p>
+            경기 영상을 업로드하고 플레이 데이터를 분석합니다.
+          </p>
+
         </div>
 
-    </div>
+      </div>
 
 
-    <div class="data-management-grid">
+      <div class="video-workspace">
 
-        <div class="panel">
+        <!-- VIDEO -->
 
-            <h3>
-                데이터 백업
-            </h3>
+        <div class="video-panel">
 
-            <p>
-                현재 모든 데이터를 JSON 파일로 저장합니다.
-            </p>
+          <div class="panel-header">
 
-            <button
-                class="primary-button"
-                id="exportData"
+            <div>
+              <span class="eyebrow">
+                GAME FOOTAGE
+              </span>
+
+              <h3>
+                경기 영상
+              </h3>
+            </div>
+
+            <span
+              class="analysis-status"
+              id="videoStatus"
             >
-                JSON 백업
-            </button>
+              READY
+            </span>
 
-        </div>
+          </div>
 
 
-        <div class="panel">
+          <div
+            class="video-stage"
+            id="videoStage"
+          >
 
-            <h3>
-                데이터 복원
-            </h3>
+            <video
+              id="gameVideo"
+              controls
+              playsinline
+            ></video>
 
-            <p>
-                이전에 백업한 JSON 데이터를 불러옵니다.
-            </p>
+
+            <div
+              class="video-placeholder"
+              id="videoPlaceholder"
+            >
+
+              <div class="upload-symbol">
+                +
+              </div>
+
+              <strong>
+                경기 영상을 업로드하세요
+              </strong>
+
+              <span>
+                MP4 / MOV / WebM
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="video-controls">
 
             <label class="upload-button">
 
-                JSON 불러오기
+              <input
+                type="file"
+                id="videoUpload"
+                accept="video/*"
+                hidden
+              >
 
-                <input
-                    type="file"
-                    id="importData"
-                    accept=".json"
-                    hidden
-                >
-
+              영상 선택
             </label>
+
+
+            <button
+              class="btn btn-primary"
+              id="startAnalysisBtn"
+              disabled
+            >
+              AI 분석 시작
+            </button>
+
+          </div>
+
+
+          <div
+            class="analysis-progress"
+            id="analysisProgress"
+          >
+
+            <div class="progress-top">
+
+              <span>
+                ANALYSIS
+              </span>
+
+              <span id="progressPercent">
+                0%
+              </span>
+
+            </div>
+
+            <div class="progress-track">
+
+              <div
+                class="progress-bar"
+                id="progressBar"
+              ></div>
+
+            </div>
+
+            <div
+              class="progress-message"
+              id="progressMessage"
+            >
+              분석 대기 중
+            </div>
+
+          </div>
 
         </div>
 
 
-        <div class="panel danger-panel">
+        <!-- LIVE EVENTS -->
+
+        <div class="event-panel">
+
+          <div class="panel-header">
+
+            <div>
+              <span class="eyebrow">
+                EVENT STREAM
+              </span>
+
+              <h3>
+                플레이 이벤트
+              </h3>
+            </div>
+
+            <button
+              class="small-button"
+              id="clearEventsBtn"
+            >
+              CLEAR
+            </button>
+
+          </div>
+
+
+          <div
+            class="event-list"
+            id="eventList"
+          >
+
+            <div class="empty-state">
+
+              <span>
+                —
+              </span>
+
+              <strong>
+                아직 분석된 이벤트가 없습니다.
+              </strong>
+
+              <small>
+                영상을 업로드하고 분석을 시작하세요.
+              </small>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- PLAYER TRACKING -->
+
+      <div class="tracking-panel">
+
+        <div class="panel-header">
+
+          <div>
+
+            <span class="eyebrow">
+              PLAYER TRACKING
+            </span>
 
             <h3>
-                데이터 초기화
+              선수 추적
+            </h3>
+
+          </div>
+
+          <button
+            class="small-button"
+            id="addTrackingPlayerBtn"
+          >
+            + 선수 추가
+          </button>
+
+        </div>
+
+
+        <div
+          class="tracking-list"
+          id="trackingList"
+        >
+
+          <div class="tracking-player">
+
+            <span class="tracking-number">
+              07
+            </span>
+
+            <span class="tracking-name">
+              선수 등록 필요
+            </span>
+
+            <span class="tracking-state">
+              READY
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         GAME REPORT
+    ====================================================== -->
+
+    <section
+      class="page"
+      id="page-games"
+    >
+
+      <div class="page-header compact">
+
+        <div>
+
+          <span class="eyebrow">
+            GAME INTELLIGENCE
+          </span>
+
+          <h1>
+            GAME<br>
+            <span>REPORT</span>
+          </h1>
+
+          <p>
+            한 경기의 흐름과 데이터를 한눈에 확인합니다.
+          </p>
+
+        </div>
+
+        <button
+          class="btn btn-primary"
+          id="newGameBtn"
+        >
+          + 경기 등록
+        </button>
+
+      </div>
+
+
+      <!-- GAME SELECTOR -->
+
+      <div class="game-selector">
+
+        <label>
+          분석 경기
+        </label>
+
+        <select id="gameSelect">
+          <option value="">
+            경기 선택
+          </option>
+        </select>
+
+      </div>
+
+
+      <!-- GAME SCORE -->
+
+      <div class="report-scoreboard">
+
+        <div class="report-team">
+
+          <span class="big-team-logo">
+            S
+          </span>
+
+          <strong id="reportHomeTeam">
+            설천고
+          </strong>
+
+        </div>
+
+
+        <div class="report-score">
+
+          <div>
+            <span id="reportHomeScore">
+              0
+            </span>
+
+            <small>
+              —
+            </small>
+
+            <span id="reportAwayScore">
+              0
+            </span>
+          </div>
+
+          <em>
+            FINAL · 3×3 · 15 MIN
+          </em>
+
+        </div>
+
+
+        <div class="report-team">
+
+          <strong id="reportAwayTeam">
+            상대팀
+          </strong>
+
+          <span class="big-team-logo opponent">
+            O
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- GAME METRICS -->
+
+      <div class="metrics-grid">
+
+        <div class="metric-card">
+
+          <span>
+            POINTS
+          </span>
+
+          <strong id="metricPoints">
+            0
+          </strong>
+
+        </div>
+
+        <div class="metric-card">
+
+          <span>
+            REBOUNDS
+          </span>
+
+          <strong id="metricRebounds">
+            0
+          </strong>
+
+        </div>
+
+        <div class="metric-card">
+
+          <span>
+            ASSISTS
+          </span>
+
+          <strong id="metricAssists">
+            0
+          </strong>
+
+        </div>
+
+        <div class="metric-card">
+
+          <span>
+            TURNOVERS
+          </span>
+
+          <strong id="metricTurnovers">
+            0
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- GAME ANALYSIS -->
+
+      <div class="report-grid">
+
+        <div class="report-panel large">
+
+          <div class="panel-header">
+
+            <div>
+
+              <span class="eyebrow">
+                GAME FLOW
+              </span>
+
+              <h3>
+                경기 흐름
+              </h3>
+
+            </div>
+
+          </div>
+
+          <div class="chart-container">
+
+            <canvas id="gameFlowChart"></canvas>
+
+          </div>
+
+        </div>
+
+
+        <div class="report-panel">
+
+          <div class="panel-header">
+
+            <div>
+
+              <span class="eyebrow">
+                EFFICIENCY
+              </span>
+
+              <h3>
+                공격 / 수비
+              </h3>
+
+            </div>
+
+          </div>
+
+          <div
+            class="efficiency-bars"
+            id="efficiencyBars"
+          >
+
+            <div class="efficiency-row">
+
+              <div>
+                <span>OFFENSE</span>
+                <strong>0</strong>
+              </div>
+
+              <div class="bar">
+                <i style="width:0%"></i>
+              </div>
+
+            </div>
+
+
+            <div class="efficiency-row">
+
+              <div>
+                <span>DEFENSE</span>
+                <strong>0</strong>
+              </div>
+
+              <div class="bar">
+                <i style="width:0%"></i>
+              </div>
+
+            </div>
+
+
+            <div class="efficiency-row">
+
+              <div>
+                <span>REBOUND</span>
+                <strong>0</strong>
+              </div>
+
+              <div class="bar">
+                <i style="width:0%"></i>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- SHOT HEATMAP -->
+
+      <div class="report-panel heatmap-panel">
+
+        <div class="panel-header">
+
+          <div>
+
+            <span class="eyebrow">
+              SHOT PROFILE
+            </span>
+
+            <h3>
+              SHOOTING HEATMAP
+            </h3>
+
+          </div>
+
+
+          <div class="heatmap-legend">
+
+            <span>
+              <i class="made"></i>
+              MADE
+            </span>
+
+            <span>
+              <i class="missed"></i>
+              MISSED
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="court-wrapper">
+
+          <canvas
+            id="heatmapCanvas"
+            width="1000"
+            height="600"
+          ></canvas>
+
+        </div>
+
+      </div>
+
+
+      <!-- AI COACH -->
+
+      <div class="coach-report">
+
+        <div class="coach-icon">
+          AI
+        </div>
+
+        <div>
+
+          <span class="eyebrow">
+            AI COACH
+          </span>
+
+          <h3>
+            경기 한줄평
+          </h3>
+
+          <p id="aiGameComment">
+            경기 데이터를 분석하면 AI 코치의 평가가 표시됩니다.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- EXPORT -->
+
+      <div class="report-actions">
+
+        <button
+          class="btn btn-primary"
+          id="generateReportBtn"
+        >
+          리포트 생성
+        </button>
+
+        <button
+          class="btn btn-secondary"
+          id="printReportBtn"
+        >
+          인쇄 / PDF
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PLAYER REPORT
+    ====================================================== -->
+
+    <section
+      class="page"
+      id="page-players"
+    >
+
+      <div class="page-header compact">
+
+        <div>
+
+          <span class="eyebrow">
+            PLAYER INTELLIGENCE
+          </span>
+
+          <h1>
+            PLAYER<br>
+            <span>REPORT</span>
+          </h1>
+
+          <p>
+            선수 개인의 경기력과 플레이스타일을 분석합니다.
+          </p>
+
+        </div>
+
+
+        <button
+          class="btn btn-primary"
+          id="addPlayerBtn"
+        >
+          + 선수 등록
+        </button>
+
+      </div>
+
+
+      <div class="player-layout">
+
+        <!-- PLAYER LIST -->
+
+        <aside class="player-list-panel">
+
+          <div class="panel-header">
+
+            <div>
+
+              <span class="eyebrow">
+                ROSTER
+              </span>
+
+              <h3>
+                선수
+              </h3>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="player-list"
+            id="playerList"
+          >
+
+            <div class="empty-state">
+
+              <span>
+                ◎
+              </span>
+
+              <strong>
+                등록된 선수가 없습니다.
+              </strong>
+
+              <small>
+                선수 등록 후 개인 리포트를 확인하세요.
+              </small>
+
+            </div>
+
+          </div>
+
+        </aside>
+
+
+        <!-- PLAYER REPORT -->
+
+        <div class="player-report-panel">
+
+          <div
+            class="player-profile"
+            id="playerProfile"
+          >
+
+            <div class="player-number">
+              00
+            </div>
+
+            <div class="player-info">
+
+              <span>
+                PLAYER
+              </span>
+
+              <h2 id="playerReportName">
+                선수 선택
+              </h2>
+
+              <p id="playerReportPosition">
+                —
+              </p>
+
+            </div>
+
+
+            <div class="player-style">
+
+              <span>
+                PLAY STYLE
+              </span>
+
+              <strong id="playerStyle">
+                —
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <!-- PLAYER STATS -->
+
+          <div class="player-stat-grid">
+
+            <div>
+              <span>PTS</span>
+              <strong id="playerPTS">0</strong>
+            </div>
+
+            <div>
+              <span>REB</span>
+              <strong id="playerREB">0</strong>
+            </div>
+
+            <div>
+              <span>AST</span>
+              <strong id="playerAST">0</strong>
+            </div>
+
+            <div>
+              <span>STL</span>
+              <strong id="playerSTL">0</strong>
+            </div>
+
+            <div>
+              <span>BLK</span>
+              <strong id="playerBLK">0</strong>
+            </div>
+
+            <div>
+              <span>TO</span>
+              <strong id="playerTO">0</strong>
+            </div>
+
+          </div>
+
+
+          <!-- SHOOTING -->
+
+          <div class="player-analysis-grid">
+
+            <div class="report-panel">
+
+              <div class="panel-header">
+
+                <div>
+
+                  <span class="eyebrow">
+                    SHOOTING
+                  </span>
+
+                  <h3>
+                    슈팅 효율
+                  </h3>
+
+                </div>
+
+              </div>
+
+
+              <div class="shooting-stats">
+
+                <div>
+                  <span>FG%</span>
+                  <strong id="playerFG">0%</strong>
+                </div>
+
+                <div>
+                  <span>2P%</span>
+                  <strong id="player2P">0%</strong>
+                </div>
+
+                <div>
+                  <span>3P%</span>
+                  <strong id="player3P">0%</strong>
+                </div>
+
+              </div>
+
+
+              <div class="mini-chart">
+
+                <canvas id="playerShotChart"></canvas>
+
+              </div>
+
+            </div>
+
+
+            <!-- HEATMAP -->
+
+            <div class="report-panel">
+
+              <div class="panel-header">
+
+                <div>
+
+                  <span class="eyebrow">
+                    SHOT MAP
+                  </span>
+
+                  <h3>
+                    슛 히트맵
+                  </h3>
+
+                </div>
+
+              </div>
+
+
+              <div class="mini-court">
+
+                <canvas
+                  id="playerHeatmapCanvas"
+                  width="600"
+                  height="360"
+                ></canvas>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- PLAYER AI -->
+
+          <div class="player-ai-grid">
+
+            <div class="ai-card">
+
+              <span class="eyebrow">
+                PLAY STYLE
+              </span>
+
+              <h3 id="playerStyleTitle">
+                —
+              </h3>
+
+              <p id="playerStyleDescription">
+                선수 데이터를 기반으로 플레이스타일을 분석합니다.
+              </p>
+
+            </div>
+
+
+            <div class="ai-card">
+
+              <span class="eyebrow">
+                TRAINING RECOMMENDATION
+              </span>
+
+              <h3>
+                AI 훈련 추천
+              </h3>
+
+              <ul id="trainingRecommendations">
+
+                <li>
+                  선수 데이터를 분석하면 추천 훈련이 표시됩니다.
+                </li>
+
+              </ul>
+
+            </div>
+
+          </div>
+
+
+          <div class="coach-report player-coach">
+
+            <div class="coach-icon">
+              AI
+            </div>
+
+            <div>
+
+              <span class="eyebrow">
+                AI COACH
+              </span>
+
+              <h3>
+                선수 한줄평
+              </h3>
+
+              <p id="playerAIComment">
+                선수 리포트를 선택하면 AI 코치의 평가가 표시됩니다.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         LEAGUE
+    ====================================================== -->
+
+    <section
+      class="page"
+      id="page-league"
+    >
+
+      <div class="page-header compact">
+
+        <div>
+
+          <span class="eyebrow">
+            COMPETITION CENTER
+          </span>
+
+          <h1>
+            LEAGUE<br>
+            <span>STANDINGS</span>
+          </h1>
+
+          <p>
+            설천고 3×3 리그의 순위와 팀 전력을 관리합니다.
+          </p>
+
+        </div>
+
+
+        <button
+          class="btn btn-primary"
+          id="addTeamBtn"
+        >
+          + 팀 등록
+        </button>
+
+      </div>
+
+
+      <div class="league-summary">
+
+        <div>
+
+          <span>
+            TEAMS
+          </span>
+
+          <strong id="leagueTeams">
+            0
+          </strong>
+
+        </div>
+
+        <div>
+
+          <span>
+            GAMES
+          </span>
+
+          <strong id="leagueGames">
+            0
+          </strong>
+
+        </div>
+
+        <div>
+
+          <span>
+            LEADER
+          </span>
+
+          <strong id="leagueLeader">
+            —
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- STANDINGS -->
+
+      <div class="standings-panel">
+
+        <div class="panel-header">
+
+          <div>
+
+            <span class="eyebrow">
+              3×3 LEAGUE
+            </span>
+
+            <h3>
+              리그 순위
+            </h3>
+
+          </div>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+          <table>
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  RANK
+                </th>
+
+                <th>
+                  TEAM
+                </th>
+
+                <th>
+                  GP
+                </th>
+
+                <th>
+                  W
+                </th>
+
+                <th>
+                  L
+                </th>
+
+                <th>
+                  PF
+                </th>
+
+                <th>
+                  PA
+                </th>
+
+                <th>
+                  DIFF
+                </th>
+
+                <th>
+                  WIN%
+                </th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody id="standingsBody">
+
+              <tr class="empty-table-row">
+
+                <td colspan="9">
+                  등록된 팀이 없습니다.
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+
+      <!-- TEAM POWER -->
+
+      <div class="team-power-panel">
+
+        <div class="panel-header">
+
+          <div>
+
+            <span class="eyebrow">
+              TEAM POWER
+            </span>
+
+            <h3>
+              팀 전력
+            </h3>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="team-power-grid"
+          id="teamPowerGrid"
+        >
+
+          <div class="empty-state">
+
+            <span>
+              ♜
+            </span>
+
+            <strong>
+              팀 데이터를 기다리는 중
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         AI TRAINING
+    ====================================================== -->
+
+    <section
+      class="page"
+      id="page-training"
+    >
+
+      <div class="page-header compact">
+
+        <div>
+
+          <span class="eyebrow">
+            AI PERFORMANCE COACH
+          </span>
+
+          <h1>
+            AI<br>
+            <span>TRAINING</span>
+          </h1>
+
+          <p>
+            선수 데이터를 기반으로 훈련 방향을 제안합니다.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="training-dashboard">
+
+        <div class="training-intro">
+
+          <div class="ai-large">
+            AI
+          </div>
+
+          <div>
+
+            <span class="eyebrow">
+              PERFORMANCE ENGINE
+            </span>
+
+            <h2>
+              데이터 기반 훈련 추천
+            </h2>
+
+            <p>
+              슈팅 성공률, 턴오버, 리바운드,
+              어시스트, 수비 지표 등을 종합하여
+              선수별 훈련 우선순위를 제안합니다.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="training-player-select"
+        >
+
+          <label>
+            선수 선택
+          </label>
+
+          <select id="trainingPlayerSelect">
+
+            <option value="">
+              선수 선택
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div
+          class="training-results"
+          id="trainingResults"
+        >
+
+          <div class="training-card">
+
+            <span class="training-index">
+              01
+            </span>
+
+            <span class="eyebrow">
+              SHOOTING
+            </span>
+
+            <h3>
+              —
             </h3>
 
             <p>
-                저장된 데이터를 삭제하고
-                기본 데이터로 되돌립니다.
+              선수 데이터를 선택하면 AI가 추천합니다.
             </p>
 
-            <button
-                class="danger-button"
-                id="resetData"
-            >
-                전체 데이터 초기화
-            </button>
+          </div>
+
+
+          <div class="training-card">
+
+            <span class="training-index">
+              02
+            </span>
+
+            <span class="eyebrow">
+              BALL HANDLING
+            </span>
+
+            <h3>
+              —
+            </h3>
+
+            <p>
+              선수 데이터를 선택하면 AI가 추천합니다.
+            </p>
+
+          </div>
+
+
+          <div class="training-card">
+
+            <span class="training-index">
+              03
+            </span>
+
+            <span class="eyebrow">
+              DEFENSE
+            </span>
+
+            <h3>
+              —
+            </h3>
+
+            <p>
+              선수 데이터를 선택하면 AI가 추천합니다.
+            </p>
+
+          </div>
+
+
+          <div class="training-card">
+
+            <span class="training-index">
+              04
+            </span>
+
+            <span class="eyebrow">
+              CONDITIONING
+            </span>
+
+            <h3>
+              —
+            </h3>
+
+            <p>
+              선수 데이터를 선택하면 AI가 추천합니다.
+            </p>
+
+          </div>
 
         </div>
 
-    </div>
+      </div>
 
-</section>
+    </section>
 
-
-</main>
-
-</div>
+  </main>
 
 
-<!-- =====================================================
-     MODAL : ADD PLAYER
-===================================================== -->
+  <!-- =======================================================
+       MODAL : ADD PLAYER
+  ======================================================== -->
 
-<div
+  <div
+    class="modal"
     id="playerModal"
-    class="modal"
->
+  >
 
-    <div class="modal-box">
+    <div class="modal-content">
 
-        <div class="modal-header">
+      <button
+        class="modal-close"
+        data-close-modal="playerModal"
+      >
+        ×
+      </button>
 
-            <div>
-                <small>PLAYER DATABASE</small>
-                <h3>선수 등록</h3>
-            </div>
+      <span class="eyebrow">
+        PLAYER REGISTRATION
+      </span>
 
-            <button
-                class="modal-close"
-                data-close-modal="playerModal"
-            >
-                ×
-            </button>
+      <h2>
+        선수 등록
+      </h2>
 
-        </div>
+      <form id="playerForm">
 
+        <label>
+          선수 이름
 
-        <div class="form-grid">
+          <input
+            type="text"
+            id="playerNameInput"
+            placeholder="예: 홍길동"
+            required
+          >
 
-            <label>
-                이름
-                <input
-                    id="playerNameInput"
-                    placeholder="예: 김서준"
-                >
-            </label>
-
-
-            <label>
-                등번호
-                <input
-                    id="playerNumberInput"
-                    type="number"
-                    placeholder="1"
-                >
-            </label>
+        </label>
 
 
-            <label>
-                포지션
-                <select id="playerPositionInput">
+        <label>
+          등번호
 
-                    <option value="가드">
-                        가드
-                    </option>
+          <input
+            type="number"
+            id="playerNumberInput"
+            min="0"
+            max="99"
+            placeholder="7"
+            required
+          >
 
-                    <option value="윙">
-                        윙
-                    </option>
-
-                    <option value="빅">
-                        빅
-                    </option>
-
-                    <option value="가드/윙">
-                        가드/윙
-                    </option>
-
-                    <option value="윙/빅">
-                        윙/빅
-                    </option>
-
-                </select>
-            </label>
+        </label>
 
 
-            <label>
-                플레이스타일
-                <select id="playerStyleInput">
+        <label>
+          포지션
 
-                    <option value="공격형">
-                        공격형
-                    </option>
+          <select id="playerPositionInput">
 
-                    <option value="밸런스형">
-                        밸런스형
-                    </option>
+            <option value="G">
+              Guard
+            </option>
 
-                    <option value="플레이메이커">
-                        플레이메이커
-                    </option>
+            <option value="F">
+              Forward
+            </option>
 
-                    <option value="리바운더">
-                        리바운더
-                    </option>
+            <option value="C">
+              Center
+            </option>
 
-                    <option value="수비형">
-                        수비형
-                    </option>
+            <option value="G/F">
+              Guard / Forward
+            </option>
 
-                </select>
-            </label>
+          </select>
 
-        </div>
+        </label>
 
 
-        <div class="modal-actions">
+        <button
+          type="submit"
+          class="btn btn-primary full"
+        >
+          선수 등록
+        </button>
 
-            <button
-                class="secondary-button"
-                data-close-modal="playerModal"
-            >
-                취소
-            </button>
-
-            <button
-                class="primary-button"
-                id="savePlayer"
-            >
-                선수 등록
-            </button>
-
-        </div>
+      </form>
 
     </div>
 
-</div>
+  </div>
 
 
-<!-- =====================================================
-     MODAL : ADD TEAM
-===================================================== -->
+  <!-- =======================================================
+       MODAL : ADD TEAM
+  ======================================================== -->
 
-<div
+  <div
+    class="modal"
     id="teamModal"
-    class="modal"
->
+  >
 
-    <div class="modal-box">
+    <div class="modal-content">
 
-        <div class="modal-header">
+      <button
+        class="modal-close"
+        data-close-modal="teamModal"
+      >
+        ×
+      </button>
 
-            <div>
-                <small>LEAGUE DATABASE</small>
-                <h3>팀 등록</h3>
-            </div>
+      <span class="eyebrow">
+        TEAM REGISTRATION
+      </span>
 
-            <button
-                class="modal-close"
-                data-close-modal="teamModal"
-            >
-                ×
-            </button>
+      <h2>
+        팀 등록
+      </h2>
 
-        </div>
+      <form id="teamForm">
 
+        <label>
+          팀 이름
 
-        <div class="form-grid">
+          <input
+            type="text"
+            id="teamNameInput"
+            placeholder="예: 설천고"
+            required
+          >
 
-            <label>
-                팀명
-                <input
-                    id="teamNameInput"
-                    placeholder="예: 설천고"
-                >
-            </label>
-
-        </div>
+        </label>
 
 
-        <div class="modal-actions">
+        <label>
+          팀 약칭
 
-            <button
-                class="secondary-button"
-                data-close-modal="teamModal"
-            >
-                취소
-            </button>
+          <input
+            type="text"
+            id="teamShortInput"
+            placeholder="SCH"
+            maxlength="4"
+            required
+          >
 
-            <button
-                class="primary-button"
-                id="saveTeam"
-            >
-                팀 등록
-            </button>
+        </label>
 
-        </div>
+
+        <button
+          type="submit"
+          class="btn btn-primary full"
+        >
+          팀 등록
+        </button>
+
+      </form>
 
     </div>
 
-</div>
+  </div>
 
 
-<!-- =====================================================
-     TOAST
-===================================================== -->
+  <!-- =======================================================
+       MODAL : ADD GAME
+  ======================================================== -->
 
-<div
-    id="toast"
+  <div
+    class="modal"
+    id="gameModal"
+  >
+
+    <div class="modal-content">
+
+      <button
+        class="modal-close"
+        data-close-modal="gameModal"
+      >
+        ×
+      </button>
+
+      <span class="eyebrow">
+        GAME REGISTRATION
+      </span>
+
+      <h2>
+        경기 등록
+      </h2>
+
+      <form id="gameForm">
+
+        <label>
+          우리 팀
+
+          <select id="gameHomeInput">
+            <option value="설천고">
+              설천고
+            </option>
+          </select>
+
+        </label>
+
+
+        <label>
+          상대 팀
+
+          <input
+            type="text"
+            id="gameAwayInput"
+            placeholder="상대팀"
+            required
+          >
+
+        </label>
+
+
+        <div class="form-row">
+
+          <label>
+            우리 팀 점수
+
+            <input
+              type="number"
+              id="gameHomeScoreInput"
+              min="0"
+              max="21"
+              value="0"
+              required
+            >
+
+          </label>
+
+
+          <label>
+            상대 팀 점수
+
+            <input
+              type="number"
+              id="gameAwayScoreInput"
+              min="0"
+              max="21"
+              value="0"
+              required
+            >
+
+          </label>
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="btn btn-primary full"
+        >
+          경기 저장
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- =======================================================
+       TOAST
+  ======================================================== -->
+
+  <div
     class="toast"
-></div>
+    id="toast"
+  >
+    <span id="toastMessage">
+      저장되었습니다.
+    </span>
+  </div>
 
 
-<!-- =====================================================
-     JAVASCRIPT
-===================================================== -->
+  <!-- =======================================================
+       MAIN JAVASCRIPT
+  ======================================================== -->
 
-<script src="app.js"></script>
+  <script src="app.js"></script>
 
-<script>
-    lucide.createIcons();
-</script>
+</div>
 
 </body>
 </html>
